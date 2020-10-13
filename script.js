@@ -1,32 +1,51 @@
+class Calculator {
+    constructor(previousOperandTextElement, currentOperandTextElement) {
+        this.previousOperandTextElement = previousOperandTextElement;
+        this.currentOperandTextElement = currentOperandTextElement;
+        this.clear();
+    }
+
+    clear = () => {
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.operation = undefined;
+    }
+
+    delete = () => {
+
+    }
+
+    appendNumber = (number) => {
+        this.currentOperand = number;
+    }
+
+    chooseOperation = (operation) => {
+
+    }
+
+    compute = () => {
+
+    }
+
+    updateDisplay = () => {
+        this.currentOperandTextElement.innerText = this.currentOperand;
+    }
+}
+
+
 const numbersButtons = document.querySelectorAll('[data-number]');
 const operationButtons = document.querySelectorAll('[data-operation]');
-const equalButton = document.querySelector('[data-equals]');
+const equalsButton = document.querySelector('[data-equals]');
 const allClearButton = document.querySelector('[data-all-clear]');
 const deleteButton = document.querySelector('[data-delete]')
-const currentOperandValue = document.querySelector('[current-operand]');
+const previousOperandTextElement = document.querySelector('[data-previous-operand]');
+const currentOperandTextElement = document.querySelector('[data-current-operand]');
 
+const calculator = new Calculator(previousOperandTextElement, currentOperandTextElement);
 
-numbersButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        console.log(btn.innerText)
+numbersButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.appendNumber(button.innerText)
+        calculator.updateDisplay()
     })
-});
-
-operationButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        console.log(btn.innerText)
-    })
-});
-
-equalButton.addEventListener('click', (e) => {
-    console.log(e.target.textContent)
-});
-
-allClearButton.addEventListener('click', (e) => {
-    console.log(e.target.textContent)
-});
-
-deleteButton.addEventListener('click', (e) => {
-    console.log(e.target.textContent)
-});
-
+})
