@@ -78,7 +78,7 @@ class Calculator {
 
         if (isNaN(prev) || isNaN(current)) return;
 
-        this.currentOperand = computation;
+        this.currentOperand = +computation.toFixed(10);
         this.operation = undefined;
         this.previousOperand = '';
     }
@@ -102,7 +102,11 @@ class Calculator {
     }
 
     updateDisplay = () => {
-        this.currentOperandTextElement.innerText = this.displayNumber(this.currentOperand);
+        console.log(this.currentOperand);
+        console.log(this.previousOperand);
+        this.currentOperandTextElement.innerText = isNaN(this.currentOperand) && this.currentOperand !== '-'
+            ? 'error'
+            : this.displayNumber(this.currentOperand);
         if (this.operation != null) {
             this.previousOperandTextElement.innerText =
                 this.previousOperand < 0
