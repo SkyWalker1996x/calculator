@@ -34,6 +34,16 @@ class Calculator {
         }
     }
 
+    handlerMinus = () => {
+        if (this.currentOperand.length !== 0) {
+            if (this.currentOperand.length === 1 && this.currentOperand.includes('-')) return;
+            this.chooseOperation('-')
+        } else {
+            if (this.currentOperand.includes('-')) return;
+            this.appendNumber('-');
+        }
+    }
+
     compute = () => {
         let computation;
         const prev = parseFloat(this.previousOperand);
@@ -62,9 +72,6 @@ class Calculator {
             case '^':
                 computation = Math.pow(prev, current);
                 break;
-            /*case '√':
-                computation = Math.sqrt(prev);
-                break;*/
             default:
                 return;
         }
@@ -77,6 +84,7 @@ class Calculator {
     }
 
     displayNumber = (number) => {
+        if (number === '-') return '-';
         const stringNumber = number.toString();
         const integerDigits = parseFloat(stringNumber.split('.')[0]);
         const decimalDigits = stringNumber.split('.')[1];
@@ -96,7 +104,10 @@ class Calculator {
     updateDisplay = () => {
         this.currentOperandTextElement.innerText = this.displayNumber(this.currentOperand);
         if (this.operation != null) {
-            this.previousOperandTextElement.innerText = `${this.previousOperand} ${this.operation}`;
+            this.previousOperandTextElement.innerText =
+                this.previousOperand < 0
+                    ? `(${this.previousOperand}) ${this.operation}`
+                    : `${this.previousOperand} ${this.operation}`;
         } else {
             this.previousOperandTextElement.innerText = '';
         }
@@ -107,6 +118,7 @@ class Calculator {
 
 const numbersButtons = document.querySelectorAll('[data-number]');
 const operationButtons = document.querySelectorAll('[data-operation]');
+const minusButton = document.querySelector('[data-minus]')
 const equalsButton = document.querySelector('[data-equals]');
 const allClearButton = document.querySelector('[data-all-clear]');
 const deleteButton = document.querySelector('[data-delete]')
@@ -127,6 +139,11 @@ operationButtons.forEach(button => {
         calculator.chooseOperation(button.innerText);
         calculator.updateDisplay();
     })
+})
+
+minusButton.addEventListener('click', () => {
+    calculator.handlerMinus();
+    calculator.updateDisplay();
 })
 
 equalsButton.addEventListener('click', () => {
