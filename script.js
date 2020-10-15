@@ -25,16 +25,27 @@ class Calculator {
         if (this.previousOperand !== '') {
             this.compute();
         }
-        this.operation = operation;
+        this.operation = operation === 'n x' ? '^' : operation;
         this.previousOperand = this.currentOperand;
         this.currentOperand = '';
+
+        if (this.operation === '√') {
+            this.compute();
+        }
     }
 
     compute = () => {
         let computation;
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
-        if (isNaN(prev) || isNaN(current)) return;
+
+        if (this.operation === '√') {
+            computation = Math.sqrt(prev);
+            this.currentOperand = computation;
+            this.operation = undefined;
+            this.previousOperand = '';
+        }
+
         switch (this.operation) {
             case '+':
                 computation = prev + current;
@@ -48,14 +59,21 @@ class Calculator {
             case '*':
                 computation = prev * current;
                 break;
+            case '^':
+                computation = Math.pow(prev, current);
+                break;
+            /*case '√':
+                computation = Math.sqrt(prev);
+                break;*/
             default:
                 return;
         }
 
+        if (isNaN(prev) || isNaN(current)) return;
+
         this.currentOperand = computation;
         this.operation = undefined;
         this.previousOperand = '';
-
     }
 
     displayNumber = (number) => {
