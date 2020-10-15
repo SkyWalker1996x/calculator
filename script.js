@@ -21,6 +21,7 @@ class Calculator {
     }
 
     chooseOperation = (operation) => {
+        if (this.currentOperand.length === 1 && this.currentOperand.includes('-')) return;
         if (this.currentOperand === '') return;
         if (this.previousOperand !== '') {
             this.compute();
@@ -39,7 +40,6 @@ class Calculator {
             if (this.currentOperand.length === 1 && this.currentOperand.includes('-')) return;
             this.chooseOperation('-')
         } else {
-            if (this.currentOperand.includes('-')) return;
             this.appendNumber('-');
         }
     }
