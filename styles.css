@@ -7,8 +7,13 @@
 body {
     padding: 0;
     margin: 0;
-    background: rgb(39,39,47);
-    background: linear-gradient(0deg, rgba(39,39,47,1) 0%, rgba(12,12,154,1) 10%, rgba(0,212,255,1) 100%);
+    background: rgb(39, 39, 47);
+    background: linear-gradient(0deg, rgba(39, 39, 47, 1) 0%, rgba(12, 12, 154, 1) 10%, rgba(0, 212, 255, 1) 100%);
+}
+
+p, h3 {
+    margin: 3px;
+    padding: 5px;
 }
 
 .calculator-grid {
@@ -56,4 +61,15 @@ body {
 .output .current-operand {
     color: white;
     font-size: 2.5rem;
+}
+
+.instruction {
+    grid-column: 1/-1;
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    color: #ffffff;
 }
